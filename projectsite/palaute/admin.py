@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Choice, Question, Kayttajat, Toimipiste, Palaute
+from .models import Choice, Question, Kayttajat, Toimipiste, Palaute, Kaupunki, Osoite
 
 class ChoiceInline(admin.TabularInline):
     model = Choice
@@ -18,11 +18,36 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(Question, QuestionAdmin)
 
+
+class KaupunkiAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Kaupunki, jossa toimipiste sijaitsee', {'fields': ['kaupunki']}),
+        ('Luonti pvm', {'fields': ['last_update'], 'classes': ['collapse']})
+    ]
+    list_display = ['kaupunki']
+    list_filter = ['last_update']
+    search_fields = ['kaupunki_id']
+
+admin.site.register(Kaupunki, KaupunkiAdmin)
+
+class OsoiteAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Katuosoite', {'fields': ['osoite']}),
+        ('Postinumero', {'fields': ['postinumero']}),
+        ('Pvm', {'fields': ['last_update'], 'classes': ['collapse']}),
+        ('Kaupungin tiedot', {'fields': ['FK_kaupunki_id']})
+    ]
+    list_display = ['osoite']
+    list_filter = ['last_update']
+
+admin.site.register(Osoite, OsoiteAdmin)
+
+
 class ToimipisteAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Toimipisteen nimi',               {'fields': ['toimipiste_nimi']}),
+        ('Toimipisteen nimi', {'fields': ['toimipiste_nimi']}),
         ('Pvm tiedot', {'fields': ['last_update'], 'classes': ['collapse']}),
-        ('Osoitteen tiedot', {'fields': ['osoite_id']})
+        ('Osoitteen tiedot', {'fields': ['osoite_id']}),
     ]
     list_display = ('toimipiste_nimi', 'last_update')
     list_filter = ['last_update']
@@ -38,10 +63,10 @@ class PalauteAdmin(admin.ModelAdmin):
         (None, {'fields': ['arvosana']}),
         ('Hyvää', {'fields': ['hyvaa']}),
         (None, {'fields': ['huonoa']}),
-        (None, {'fields': ['parannettavaa']}),
+        (None, {'fields': ['parannettavaa']})
     ]
-    list_display = ('toimipiste_id', 'palaute_pvm')
-    list_filter = ['toimipiste_id']
+    #list_display = ('toimipiste_id', 'last_update')
+    #list_filter = ['palaute_pvm']
     search_fields = ['toimipiste_id']
 
 admin.site.register(Palaute, PalauteAdmin)

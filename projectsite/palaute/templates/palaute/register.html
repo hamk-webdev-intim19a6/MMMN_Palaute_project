@@ -1,0 +1,14 @@
+<h1>Rekisteröityminen</h1>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    {{form.errors}}
+    
+    <input type="submit" name="Create User">
+
+</form>
+
+{% for message in messages %}
+    <p>{{message}}</p>
+{% endfor %}

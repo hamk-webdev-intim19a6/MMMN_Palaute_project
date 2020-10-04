@@ -5,11 +5,18 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 
+from django.contrib.admin.views.decorators import staff_member_required
+
+
 from django.contrib import messages
 
 from .forms import CreateUserForm
 # Create your views here.
 
+@staff_member_required
+def results(request, question_id):
+    response = "You're looking at the results of feedback %s."
+    return HttpResponse(response % question_id)
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
@@ -20,9 +27,6 @@ def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'palaute/detail.html', {'question': question})
 
-def results(request, question_id):
-    response = "You're looking at the results of feedback %s."
-    return HttpResponse(response % question_id)
 
 def vote(request, question_id):
     return HttpResponse("You're giving feedback on topic %s." % question_id)
@@ -61,3 +65,4 @@ def login_page(request):
 
     context = {'form':form}
     return render(request, 'palaute/login.html', context)
+

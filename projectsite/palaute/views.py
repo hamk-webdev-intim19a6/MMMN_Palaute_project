@@ -10,6 +10,28 @@ from .forms import CreateUserForm, PalauteForm
 
 # Create your views here.
 
+
+
+def index(request):
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    context = {'latest_question_list': latest_question_list}
+    return render(request, 'palaute/index.html', context)
+
+def detail(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'palaute/detail.html', {'question': question})
+
+@login_required
+def results(request, question_id):
+    if request.user.is_superuser:
+        response = "You're looking at the results of feedback %s."
+        return HttpResponse(response % question_id)
+    else:
+        return redirect('/login.html/')
+
+def vote(request, question_id):
+    return HttpResponse("You're giving feedback on topic %s." % question_id)
+
 def register_page(request):
     form = CreateUserForm()
 

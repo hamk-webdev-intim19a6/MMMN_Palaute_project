@@ -1,9 +1,36 @@
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'palaute:detail' question.id %}">{{ question.question_text }}</a></li>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Palaute</title>
+</head>
+<body>
+    <h2>Navbar</h2>
+    
+    {% block content %} <!-- Yläpuolella oleva periytyy register.html ja login.html-->
+
+    <h1>Anna palautetta</h1>
+    <span>Tervetuloa, {{request.user}} </span><br>
+    <span><a href="{% url 'palaute:logout' %}">Kirjaudu ulos</a></span>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        {{form.errors}}
+        
+        <input type="submit" name="Give feedback">
+
+    </form>
+
+    {% for message in messages %}
+        <p>{{message}}</p>
     {% endfor %}
-    </ul>
-{% else %}
-    <p>No feedback is available.</p>
-{% endif %}
+    
+    {% endblock %} <!-- Alapuolella oleva periytyy register.html ja login.html-->
+
+    <h3>Footer</h3>
+
+</body>
+</html>
+
+
+

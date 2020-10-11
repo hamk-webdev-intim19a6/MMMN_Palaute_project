@@ -1,3 +1,7 @@
+<!-- Inherits HTML ja CSS from template index.html. register.html is child template -->
+{% extends 'palaute/index.html' %}
+
+{% block content %}
 <h1>Rekisteröityminen</h1>
 
 <form method="POST" action="">
@@ -8,7 +12,12 @@
     <input type="submit" name="Create User">
 
 </form>
+<br>
+<span><a href="{% url 'palaute:logout' %}">Sisäänkirjautumissivu</a></span>
 
 {% for message in messages %}
     <p>{{message}}</p>
 {% endfor %}
+
+{% endblock %}
+

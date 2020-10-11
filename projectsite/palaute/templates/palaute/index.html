@@ -1,11 +1,23 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
-    <title>Palaute</title>
+    <title>{% block title %}Palaute{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'Styles.css' %}">
+   
 </head>
+
+
 <body>
-    <h2>Navbar</h2>
-    
+
+<div class="topnav">
+   <ul>
+        <li><a class="active" href="index.html">Anna palautetta</a></li>
+        <li><a href="login.html">Kirjaudu sisään</a></li>
+        <li><a href="register.html">Rekisteröidy</a></li>
+    </ul>
+ </div>   
     {% block content %} <!-- Yläpuolella oleva periytyy register.html ja login.html-->
 
     <h1>Anna palautetta</h1>

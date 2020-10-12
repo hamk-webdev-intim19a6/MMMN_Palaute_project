@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-{% load static %}
+ {% load static %}
 <html>
 <head>
     <title>{% block title %}Palaute{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
-    <link rel="stylesheet" href="{% static 'Styles.css' %}">
-   
+    <link rel="stylesheet" type="text/css" href="{% static 'Styles.css' %}">  
 </head>
-
 
 <body>
 
-<div class="topnav">
-   <ul>
-        <li><a class="active" href="index.html">Anna palautetta</a></li>
-        <li><a href="login.html">Kirjaudu sisään</a></li>
-        <li><a href="register.html">Rekisteröidy</a></li>
-    </ul>
- </div>   
-    {% block content %} <!-- Yläpuolella oleva periytyy register.html ja login.html-->
+{% block topnav %}
+<ul class="topnav">
+    <li><a class="active" href="index.html">Anna palautetta</a></li>
+    <li><a href="login.html">Kirjaudu sisään</a></li>
+    <li><a href="register.html">Rekisteröidy</a></li>
+ </ul> 
+ {% endblock %}  
 
+     <!-- Yläpuolella oleva periytyy register.html ja login.html-->
+    
     <h1>Anna palautetta</h1>
     <span>Tervetuloa, {{request.user}} </span><br>
     <span><a href="{% url 'palaute:logout' %}">Kirjaudu ulos</a></span>
@@ -39,7 +38,9 @@
     
     {% endblock %} <!-- Alapuolella oleva periytyy register.html ja login.html-->
 
-    <h3>Footer</h3>
+    <div class="footer">
+        <p>Palautekysely</p>
+    </div>
 
 </body>
 </html>

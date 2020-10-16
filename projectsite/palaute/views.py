@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CreateUserForm, PalauteForm
+import datetime
 
 # Create your views here.
 
@@ -70,7 +71,8 @@ def logout_user(request):
 
 @login_required(login_url='palaute:login')
 def feedback(request):
-    form = PalauteForm(initial={'FK_toimipiste_id':'1'})
+    #date = datetime.date.today
+    form = PalauteForm(initial={'FK_toimipiste_id':'1', 'palaute_pvm':datetime.date.today})
 
     if request.method == 'POST':
         form = PalauteForm(request.POST)

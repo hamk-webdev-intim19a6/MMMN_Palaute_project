@@ -28,7 +28,7 @@ class Osoite(models.Model):
 
 
 class Toimipiste(models.Model):
-    last_update = models.DateField(auto_now=False)
+    last_update = models.DateField(auto_now_add=True)
     FK_osoite_id = models.OneToOneField(
         'Osoite',
         on_delete=models.RESTRICT
@@ -57,9 +57,9 @@ class Palaute(models.Model):
         on_delete=models.RESTRICT
     )
     arvosana = models.PositiveIntegerField()
-    hyvaa = models.TextField()
-    huonoa = models.TextField()
-    parannettavaa = models.TextField()
+    hyvaa = models.TextField(blank=True)
+    huonoa = models.TextField(blank=True)
+    parannettavaa = models.TextField(blank=True)
     def __str__(self):
         return self.FK_toimipiste_id.toimipiste_nimi
 

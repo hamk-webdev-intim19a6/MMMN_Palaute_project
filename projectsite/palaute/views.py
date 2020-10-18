@@ -78,11 +78,15 @@ def feedback(request):
         form = PalauteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('palaute:feedback')
+            return redirect('palaute:thankyou')
             
     messages.info(request, 'Kiitos palautteestasi')
     context = {'form':form}
     return render(request, 'palaute/index.html', context)
+
+def thankyou(request):
+    response = redirect('palaute:Thankyou')
+    return response
 
 #def results(request, question_id):
 #    response = "You're looking at the results of feedback %s."

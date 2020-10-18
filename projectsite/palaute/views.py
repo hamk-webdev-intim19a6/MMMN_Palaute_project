@@ -84,8 +84,8 @@ def feedback(request):
     context = {'form':form}
     return render(request, 'palaute/index.html', context)
 
-def thankyou(request):
-   return redirect('palaute:Thankyou')
+def aftermessage(request):
+    return redirect('palaute:thankyou')
     
 
 #def results(request, question_id):

@@ -85,8 +85,8 @@ def feedback(request):
     return render(request, 'palaute/index.html', context)
 
 def thankyou(request):
-    response = redirect('palaute:Thankyou')
-    return response
+   return redirect('palaute:Thankyou')
+    
 
 #def results(request, question_id):
 #    response = "You're looking at the results of feedback %s."

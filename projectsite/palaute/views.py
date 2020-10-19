@@ -78,14 +78,13 @@ def feedback(request):
         form = PalauteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('palaute:thankyou')
+            messages.SUCCESS(request, 'Kiitos palautteestasi')
+            return redirect('palaute/index.html')
             
-    messages.info(request, 'Kiitos palautteestasi')
     context = {'form':form}
     return render(request, 'palaute/index.html', context)
 
-def aftermessage(request):
-    return redirect('palaute:thankyou')
+
     
 
 #def results(request, question_id):

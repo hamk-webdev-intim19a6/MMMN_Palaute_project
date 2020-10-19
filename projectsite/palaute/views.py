@@ -78,7 +78,7 @@ def feedback(request):
         form = PalauteForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.SUCCESS(request, 'Kiitos palautteestasi')
+            messages.success(request, 'Kiitos palautteestasi')
             return redirect('palaute/index.html')
             
     context = {'form':form}

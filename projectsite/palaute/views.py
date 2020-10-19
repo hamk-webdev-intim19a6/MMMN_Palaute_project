@@ -78,8 +78,8 @@ def feedback(request):
         form = PalauteForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Kiitos palautteestasi')
-            return redirect('/index.html')
+            messages.info(request, 'Kiitos palautteestasi')
+            return redirect('palaute:index')
             
     context = {'form':form}
     return render(request, 'palaute/index.html', context)

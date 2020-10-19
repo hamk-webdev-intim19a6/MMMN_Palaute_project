@@ -79,7 +79,7 @@ def feedback(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Kiitos palautteestasi')
-            return redirect('palaute/index.html')
+            return redirect('/index.html')
             
     context = {'form':form}
     return render(request, 'palaute/index.html', context)

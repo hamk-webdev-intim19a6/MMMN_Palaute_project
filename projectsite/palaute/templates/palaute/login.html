@@ -9,9 +9,7 @@
     {% csrf_token %}
     {{form.as_p}}
     {{form.errors}}
-
     <input type="submit" name="Login">
-
 </form>
 <br>
 <span><a href="{% url 'palaute:register' %}">Rekisteröidy</a></span>
@@ -21,7 +19,3 @@
 {% endfor %}
 
 {% endblock%}
-
-
-
-

@@ -1,105 +1,96 @@
 <!DOCTYPE html>
  
 <html>
-<head>
-    <title>{% block title %}Palaute{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
-<style>
-ul.topnav {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
+  <head>
+      <title>{% block title %}Palaute{% endblock %}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <style>
+      ul.topnav {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
 
-ul.topnav li {float: left;}
+      ul.topnav li {float: left;}
 
-ul.topnav li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+      ul.topnav li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
 
-ul.topnav li a:hover:not(.active) {background-color: black;}
+      ul.topnav li a:hover:not(.active) {background-color: black;}
 
-ul.topnav li a.active {background-color: grey;}
+      ul.topnav li a.active {background-color: grey;}
 
-ul.topnav li.right {float: right;}
+      ul.topnav li.right {float: right;}
 
-body {
-  margin: 0px 10px 50px;
-  color: grey;
-  text-align: left;
-  font-family: "Times New Roman", Times, serif;
-}
+      body {
+        margin: 0px 10px 50px;
+        color: grey;
+        text-align: left;
+        font-family: "Times New Roman", Times, serif;
+      }
 
-h1 {
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: left;
-}
+      h1 {
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: left;
+      }
 
-.footer {
-  margin-top: 10px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: black;
-  color: white;
-  text-align: center;
-}
+      .footer {
+        margin-top: 10px;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: black;
+        color: white;
+        text-align: center;
+      }
 
+      @media screen and (max-width: 600px) {
+        ul.topnav li.right, 
+        ul.topnav li {float: none;}
+      }
+    </style> 
+  </head>
 
+  <body>
 
-@media screen and (max-width: 600px) {
-  ul.topnav li.right, 
-  ul.topnav li {float: none;}
-}
-</style> 
-</head>
-
-<body>
-
-
-<ul class="topnav">
-    <!-- Linkit ovat nyt Djangon vaatimassa muodossa-->
-    <li><a class="active" href="{% url 'palaute:feedback' %}">Anna palautetta</a></li>
-    <li><a href="{% url 'palaute:register' %}">Rekisteröidy</a></li>
-    <li><span><a href="{% url 'palaute:logout' %}">Kirjaudu ulos</a></span></li>
- </ul> 
-   
-
-    {% block content %} <!-- Yläpuolella oleva periytyy register.html ja login.html-->
+    <ul class="topnav">
+      <!-- Linkit ovat nyt Djangon vaatimassa muodossa-->
+      <li><a class="active" href="{% url 'palaute:feedback' %}">Anna palautetta</a></li>
+      <li><a href="{% url 'palaute:register' %}">Rekisteröidy</a></li>
+      <li><span><a href="{% url 'palaute:logout' %}">Kirjaudu ulos</a></span></li>
+    </ul> 
     
+    {% block content %} <!-- Yläpuolella oleva periytyy register.html ja login.html-->
+      
     <h1>Anna palautetta</h1>
     <span>Tervetuloa, {{request.user}} </span><br>
     <span><a href="{% url 'palaute:logout' %}">Kirjaudu ulos</a></span>
 
     <form method="POST" action="">
-        {% csrf_token %}
-        {{form.as_p}}
-        {{form.errors}}
-        
-        <input type="submit" name="Give feedback">
-
+      {% csrf_token %}
+      {{form.as_p}}
+      {{form.errors}} 
+      <input type="submit" name="Give feedback">
     </form>
 
     {% for message in messages %}
-        <p>{{message}}</p>
+      <p>{{message}}</p>
     {% endfor %}
-    
+      
     {% endblock %} <!-- Alapuolella oleva periytyy register.html ja login.html-->
     <br>
     <div class="footer">
-        <p>Palautekysely</p>
+      <p>Palautekysely</p>
     </div>
 
-</body>
+  </body>
 </html>
-
-
-

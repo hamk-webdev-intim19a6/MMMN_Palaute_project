@@ -1,54 +1,31 @@
 import datetime
 from django.db import models
 from django.utils import timezone
-
-# Testi models
-
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
-    def __str__(self):
-        return self.question_text
-    def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-
-
-
-
-# Palauteprojekti models
 # Django luo id pääavaimen tauluille automaattisesti
+
 
 class Osoite(models.Model):
     last_update = models.DateField(auto_now=False)
     kaupunki = models.CharField(max_length=30)
     osoite = models.CharField(max_length=30)
     postinumero = models.CharField(max_length=30)
+
     def __str__(self):
         return "%s, %s" % (self.osoite, self.kaupunki)
 
 
 class Toimipiste(models.Model):
-    last_update = models.DateField(auto_now_add=True)
+    last_update = models.DateField(auto_now_add=False)
     FK_osoite_id = models.OneToOneField(
         'Osoite',
         on_delete=models.RESTRICT
     )
     toimipiste_nimi = models.CharField(max_length=30)
+
     def __str__(self):
         return "%s, %s" % (self.toimipiste_nimi, self.FK_osoite_id.kaupunki)
 
-class Kayttajat(models.Model):
-    FK_osoite_id = models.ForeignKey(
-        'Osoite',
-        on_delete=models.RESTRICT
-    )
-    etunimi = models.CharField(max_length=30)
-    sukunimi = models.CharField(max_length=30)
-    kayttaja_nimi = models.CharField(max_length=30)
-    salasana = models.CharField(max_length=30)
-    sahkoposti = models.CharField(max_length=30)
-    last_update = models.DateField(auto_now=False)
-    
+
 class Palaute(models.Model):
     palaute_pvm = models.DateField(auto_now=False)
     '''Many-to-one relationship'''
@@ -60,13 +37,6 @@ class Palaute(models.Model):
     hyvaa = models.TextField(blank=True)
     huonoa = models.TextField(blank=True)
     parannettavaa = models.TextField(blank=True)
+
     def __str__(self):
         return self.FK_toimipiste_id.toimipiste_nimi
-
-
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
-    def __str__(self):
-        return self.choice_text

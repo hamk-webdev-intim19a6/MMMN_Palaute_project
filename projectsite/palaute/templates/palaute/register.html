@@ -9,9 +9,7 @@
     {% csrf_token %}
     {{form.as_p}}
     {{form.errors}}
-    
     <input type="submit" name="Create User">
-
 </form>
 <br>
 <span><a href="{% url 'palaute:logout' %}">Sisäänkirjautumissivu</a></span>
@@ -21,4 +19,3 @@
 {% endfor %}
 
 {% endblock %}
-
